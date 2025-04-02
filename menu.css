@@ -1,0 +1,123 @@
+@font-face {
+    font-family: 'Raster Forge';
+    src: url('fonts/RasterForge.ttf') format('truetype');
+}
+
+*{
+    font-family: 'Raster Forge', sans-serif !important;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Allows scrolling if needed */
+}
+#game-container {
+    position: fixed; /* Keep background fixed in place */
+    width: 100%;
+    height: 100%;
+    background: url('img/pink.jpg') no-repeat center center;
+    background-size: cover;
+    background-attachment: auto; /* Keeps the background image fixed */
+    z-index: -1; /* Moves it behind other elements */
+}
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Header Styles */
+header {
+    width: 100%;
+    height: 80px;
+    background: rgba(255, 116, 213, 0.281); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Blur effect for a modern look */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    /*position:absolute;*/
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+header .logo {
+    font-size: 40px;
+    font-weight: bold;
+    color: #fff;
+}
+
+header nav {
+    display: flex;
+    gap: 20px;
+}
+
+header nav a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 13px;
+    transition: 0.3s;
+}
+
+header nav a:hover {
+    color: #ffcccc;
+}
+#game-menu {
+    display: grid;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    /*position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);*/
+    width: 90%; /* Adjust width as needed */
+    background: rgba(82, 0, 50, 0.5); /* Optional: for visibility */
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    gap: 20px;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+}
+.game-item {
+    width: 200px;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 5px;
+    margin: 10px;
+    width: 100%;
+}
+
+.game-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out;
+    display: block;
+    width: 100%;
+}
+
+.game-item img:hover {
+    transform: scale(1.1);
+}
+
+.game-item p {
+    margin-top: 15px;
+    font-size: 18px;
+    color: rgb(255, 0, 170);
+    text-decoration: none;
+}
+.game-item a {
+    text-decoration: none; /* Removes underline */
+    color: white; /* Ensures text color remains visible */
+}
+
