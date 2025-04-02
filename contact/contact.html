@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - BSIT 2-B ARCADE GAMES</title>
+    <style>
+        @font-face {
+            font-family: 'Raster Forge';
+            src: url('fonts/RasterForge.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'CS Degita';
+            src: url('fonts/CS Degita.otf') format('truetype');
+        }
+        body {      
+            background-color: #ffd6f6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: hotpink;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            font-family: 'Raster Forge';
+        }
+
+        header .logo {
+            font-size: 40px;
+            font-weight: bold;
+            font-family: 'Raster Forge';
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        #contact-info {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: 'Raster Forge';
+        }
+
+        #contact-info h1 {
+            text-align: center;
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 20px;
+            font-family:'Raster Forge';
+        }
+
+        #contact-info p {
+            text-align: center;
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+            font-family: 'CS Degita';
+        }
+
+        #contact-info h2 {
+            color: #444;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        #contact-info a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        #contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        form {
+            display: grid;
+            gap: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input, textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        input[type="submit"] {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 12px;
+            border-radius: 5px;
+            font-family: 'CS Degita';
+        }
+
+        input[type="submit"]:hover {
+            background-color: #005bb5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: hotpink;
+            color: white;
+            font-size: 14px;
+            font-family: 'CS Degita';
+        }
+
+        footer a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            #contact-info {
+                padding: 20px;
+            }
+
+            input, textarea {
+                font-size: 14px;
+            }
+
+            #contact-info h1 {
+                font-size: 28px;
+            }
+
+            #contact-info p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">BSIT 2-B Arcade Games</div>
+    </header>
+
+    <section id="contact-info">
+        <h1>Contact Us</h1>
+        <p>If you have any questions or feedback, feel free to reach out to us!</p>
+
+        <h2>Email</h2>
+        <p>You can email us at: <a href="mailto:contact@arcadegames.com">contact@arcadegames.com</a></p>
+
+        <h2>Phone</h2>
+        <p>Call us at: +1 (555) 123-4567</p>
+
+        <h2>Social Media</h2>
+        <p>Follow us on:</p>
+        <ul>
+            <li><a href="https://facebook.com/yourpage" target="_blank">Facebook</a></li>
+            <li><a href="https://twitter.com/yourpage" target="_blank">Twitter</a></li>
+            <li><a href="https://instagram.com/yourpage" target="_blank">Instagram</a></li>
+        </ul>
+
+        <h2>Contact Form</h2>
+        <form id="contactForm">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Your Message:</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <input type="submit" value="Send Message">
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 BSIT 2-B Arcade Games | <a href="privacy.html">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+        // Form validation
+        document.querySelector("#contactForm").addEventListener("submit", function(event) {
+            event.preventDefault();  // Prevent default form submission
+
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let message = document.getElementById("message").value;
+
+            if (!name || !email || !message) {
+                alert("Please fill in all fields.");
+            } else {
+                alert("Thank you for your message! We will get back to you soon.");
+            }
+        });
+    </script>
+</body>
+</html>
