@@ -1,0 +1,353 @@
+<html>
+<head>
+    <style>
+        @font-face {
+            font-family: 'Raster Forge';
+            src: url('fonts/RasterForge.ttf') format('truetype');
+        }
+
+        *{
+            font-family: 'Raster Forge', sans-serif !important;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: pink;
+            text-align: center;
+        }
+        .container {
+            height: 70vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .game {
+            height: 60vmin;
+            width: 60vmin;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5vmin;
+            justify-content: center;
+        }
+        .box {
+            height: 18vmin;
+            width: 18vmin;
+            border-radius: 1rem;
+            border: none;
+            box-shadow: 0 0 1rem rgba(77, 0, 70, 0.699);
+            font-size: 8vmin;
+            color: pink;
+            background-color: rgb(0, 78, 0);
+        }
+        #settings {
+            padding: 10px 20px;
+            font-size: 18px;
+            background: #ff0095;
+            color: white;
+            border-radius: 10px;
+            border: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        #settings-menu {
+            position: fixed;  /* Keep it positioned over everything */
+            top: 50%;         /* Move it down to the center */
+            left: 50%;        /* Move it to the center */
+            transform: translate(-50%, -50%); /* Perfect centering */
+            background: #ff0095;  /* Slight transparency */
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;  /* Center text inside */
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #settings-menu button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .hide {
+            display: none !important;  /* Ensure it's completely hidden */
+        }
+
+
+        #settings-menu button:hover {
+            background: #f7ff8b81;
+            color: white;
+        }
+
+        .hide {
+            display: none !important;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .box:hover {
+            background-color: #063000;
+        }
+
+        #settings:hover {
+            background-color: #ffffff;
+            color:#ff0095;
+        }
+        #new-btn, #exit-btn {
+            padding: 12px 20px; /* Ensure equal padding */
+            font-size: 18px;
+            background: #ffffff;
+            color: rgb(68, 0, 65);
+            border-radius: 5px;
+            border: none;
+            width: 200px; /* Set a fixed width */
+            text-align: center; /* Center text */
+        }
+
+        #new-btn:hover, #exit-btn:hover {
+            background-color:#f7ff8b81;
+            color: white
+        }
+
+
+        #msg {
+            font-size: 20px;
+        }
+        .msg-container {
+            height: 100px;
+            width: 200px;
+            transition: opacity 0.3s ease-in-out;
+            border-radius: 10px;
+            display: flex;
+        }
+        .hide {
+            display: none;
+        }
+        h1 {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 50px; /* Adjust size as needed */
+            color: white; /* Set text color to white */
+        }
+
+        .container {
+            height: 100vh; /* Full viewport height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .msg-container {
+            position: fixed;
+            width: 200px; /* Adjust width (50% of viewport width) */
+            height: auto;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Perfectly centers the message */
+            background:#ff0095;  /* Dark background */
+            color: rgb(0, 0, 0);
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            text-align: center;
+            display: none; /* Hide by default */
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .msg-container.show {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="msg-container hide">
+        <p id="msg">Winner</p>
+        <button id="new-btn">Play Again</button>
+        <button id="exit-btn">Exit Game</button>
+    </div>
+        
+    <main>
+        <h1>Tic Tac Toe</h1>
+        <div class="container">
+            <div class="game">
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+            </div>
+        </div>
+        <button id="settings">Settings</button>
+        <div id="settings-menu" class="hide">
+            <button id="home">Home</button>
+            <button id="reset-game">Reset Game</button>
+            <button id="exit-game">Exit Game</button>
+        </div>
+        
+    </main>
+
+    <script>
+        let boxes = document.querySelectorAll('.box');
+        let turnO = true; // Player O starts
+        let newGameBtn = document.querySelector('#new-btn');
+        let msgContainer = document.querySelector('.msg-container');
+        let msg = document.querySelector('#msg');
+    
+        const winPatterns = [
+            [0, 1, 2],
+            [0, 3, 6],
+            [0, 4, 8],
+            [1, 4, 7],
+            [2, 5, 8],
+            [2, 4, 6],
+            [3, 4, 5],
+            [6, 7, 8]
+        ];
+    
+        boxes.forEach((box) => {
+            box.addEventListener('click', function () {
+                if (turnO) {
+                    box.innerText = 'O';
+                    box.style.color = 'white';
+                    turnO = false;
+                    box.disabled = true;
+                    checkWinner();
+                } else {
+                    box.innerText = 'X';
+                    box.style.color = 'black';
+                    turnO = true;
+                    box.disabled = true;
+                    checkWinner();
+                }
+            });
+        });
+    
+        const enableBoxes = () => {
+            for (let box of boxes) {
+                box.disabled = false;
+                box.innerText = "";
+            }
+        };
+    
+        const disableBoxes = () => {
+            for (let box of boxes) {
+                box.disabled = true;
+            }
+        };
+    
+        const showWinner = (winner) => {
+            msg.innerText = `Congratulations, Winner is ${winner}!`;
+            msgContainer.classList.remove('hide'); // Ensure it is visible
+            msgContainer.classList.add('show');
+        };
+
+
+        const checkWinner = () => {
+            let hasWin = false;
+            for (let pattern of winPatterns) {
+                let pos1Val = boxes[pattern[0]].innerText;
+                let pos2Val = boxes[pattern[1]].innerText;
+                let pos3Val = boxes[pattern[2]].innerText;
+    
+                if (pos1Val !== "" && pos2Val !== "" && pos3Val !== "" &&
+                    pos1Val === pos2Val && pos2Val === pos3Val) {
+                    showWinner(pos1Val);
+                    hasWin = true;
+                    return;
+                }
+            }
+    
+            if (!hasWin) {
+                const allBoxes = [...boxes].every((box) => box.innerText !== "");
+                    if (allBoxes) {
+                        msg.innerText = 'Match Drawn';
+                        msgContainer.classList.remove('hide');
+                        msgContainer.classList.add('show');
+                    }
+            }
+        };
+    
+        const resetGame = () => {
+            let msgContainer = document.querySelector('.msg-container');
+            msgContainer.classList.remove('show'); // Hide the message
+
+            turnO = true;
+            enableBoxes();
+        };
+
+    
+        newGameBtn.addEventListener('click', () => {
+            boxes.forEach(box => {
+                box.innerText = "";
+                box.disabled = false;
+            });
+            turnO = true;
+            msgContainer.classList.remove('show');
+            msgContainer.classList.add('hide'); // Hide message again
+        });
+    
+        document.addEventListener("DOMContentLoaded", function () {
+        let settingsBtn = document.querySelector("#settings");
+        let settingsMenu = document.querySelector("#settings-menu");
+        let resetGameBtn = document.querySelector("#reset-game");
+        let homeBtn = document.querySelector("#home");
+        let exitBtn = document.querySelector("#exit-game");
+        let exitGameBtn = document.querySelector('#exit-btn');
+
+        exitGameBtn.addEventListener('click', () => {
+            window.location.href = '../menu.html'; // Redirects to a blank page
+        });
+
+    // Ensure settings menu starts hidden
+        settingsMenu.classList.add("hide");
+
+    // Toggle menu visibility on button click
+        settingsBtn.addEventListener("click", function () {
+            if (settingsMenu.classList.contains("hide")) {
+                settingsMenu.classList.remove("hide"); // Show menu
+            } else {
+                settingsMenu.classList.add("hide"); // Hide menu
+            }
+        });
+
+    // Reset Game functionality
+        resetGameBtn.addEventListener("click", function () {
+            location.reload(); // Reloads the page to reset the game
+        });
+
+    // Home button functionality
+        homeBtn.addEventListener("click", function () {
+            window.location.href = '../menu.html'; // Adjust if needed;
+        });
+
+    // Exit Game functionality
+        exitBtn.addEventListener("click", function () {
+            window.location.href = '../menu.html'; // Adjust if needed;
+        });
+
+    // Hide menu when clicking outside
+        document.addEventListener("click", function (event) {
+            if (!settingsMenu.contains(event.target) && event.target !== settingsBtn) {
+                settingsMenu.classList.add("hide");
+            }
+        });
+    });
+
+</script>   
