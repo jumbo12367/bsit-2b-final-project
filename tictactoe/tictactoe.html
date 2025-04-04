@@ -55,7 +55,7 @@
             right: 20px;
         }
 
-        #settings-menu {
+        #settings-index {
             position: fixed;  /* Keep it positioned over everything */
             top: 50%;         /* Move it down to the center */
             left: 50%;        /* Move it to the center */
@@ -69,7 +69,7 @@
             gap: 10px;
         }
 
-        #settings-menu button {
+        #settings-index button {
             padding: 10px 20px;
             font-size: 18px;
             border: none;
@@ -82,7 +82,7 @@
         }
 
 
-        #settings-menu button:hover {
+        #settings-index button:hover {
             background: #f7ff8b81;
             color: white;
         }
@@ -195,7 +195,7 @@
             </div>
         </div>
         <button id="settings">Settings</button>
-        <div id="settings-menu" class="hide">
+        <div id="settings-index" class="hide">
             <button id="home">Home</button>
             <button id="reset-game">Reset Game</button>
             <button id="exit-game">Exit Game</button>
@@ -305,25 +305,25 @@
     
         document.addEventListener("DOMContentLoaded", function () {
         let settingsBtn = document.querySelector("#settings");
-        let settingsMenu = document.querySelector("#settings-menu");
+        let settingsindex = document.querySelector("#settings-index");
         let resetGameBtn = document.querySelector("#reset-game");
         let homeBtn = document.querySelector("#home");
         let exitBtn = document.querySelector("#exit-game");
         let exitGameBtn = document.querySelector('#exit-btn');
 
         exitGameBtn.addEventListener('click', () => {
-            window.location.href = '../'index.html'; // Redirects to a blank page
+            window.location.href = '../index.html'; // Redirects to a blank page
         });
 
-    // Ensure settings menu starts hidden
-        settingsMenu.classList.add("hide");
+    // Ensure settings index starts hidden
+        settingsindex.classList.add("hide");
 
-    // Toggle menu visibility on button click
+    // Toggle index visibility on button click
         settingsBtn.addEventListener("click", function () {
-            if (settingsMenu.classList.contains("hide")) {
-                settingsMenu.classList.remove("hide"); // Show menu
+            if (settingsindex.classList.contains("hide")) {
+                settingsindex.classList.remove("hide"); // Show index
             } else {
-                settingsMenu.classList.add("hide"); // Hide menu
+                settingsindex.classList.add("hide"); // Hide index
             }
         });
 
@@ -334,18 +334,18 @@
 
     // Home button functionality
         homeBtn.addEventListener("click", function () {
-            window.location.href = '../'index.html'; // Adjust if needed;
+            window.location.href = '../index.html'; // Adjust if needed;
         });
 
     // Exit Game functionality
         exitBtn.addEventListener("click", function () {
-            window.location.href = '../'index.html'; // Adjust if needed;
+            window.location.href = '../index.html'; // Adjust if needed;
         });
 
-    // Hide menu when clicking outside
+    // Hide index when clicking outside
         document.addEventListener("click", function (event) {
-            if (!settingsMenu.contains(event.target) && event.target !== settingsBtn) {
-                settingsMenu.classList.add("hide");
+            if (!settingsindex.contains(event.target) && event.target !== settingsBtn) {
+                settingsindex.classList.add("hide");
             }
         });
     });
